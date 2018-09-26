@@ -208,7 +208,7 @@ block = document.body.appendChild(block);
 
 const updateInfo = function() {
 	block.innerHTML = `
-  	Scroll: ${document.body.scrollTop}<br>
+  	Scroll: ${document.documentElement.scrollTop}<br>
     Height: ${window.innerHeight}px
   `;
 };
