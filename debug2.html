@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Debug page</title>
+        <style>
+            body {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                -o-box-sizing: border-box;
+                box-sizing: border-box !important;
+                width: 100% !important;
+                margin: 0px;
+
+                padding-left: 19px;
+                padding-top: 19px;	
+            }
+            .ruler {
+                background: rgba(255,255,255,1);
+                color: #444;
+                font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
+                font-size: 12px;
+                line-height: 14px;
+                overflow: hidden;
+            }
+            .ruler > div {
+                background: #444;
+            }
+            .hRule {
+                position: fixed;
+                width: 100%;
+                height: 18px;
+                left: 0px;
+                top: 0px;
+                
+                border-bottom: 1px solid;
+                z-index: 9;
+            }
+            .vRule {
+                position: absolute;
+                
+                min-height: 100%;
+                width: 18px;
+                left: 0px;
+                top: 0px;
+                
+                border-right: 1px solid;
+                z-index: 9;
+
+            }
+            .corner {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                width: 18px;
+                height: 18px;
+                border-right: 1px solid;
+                border-bottom: 1px solid;
+                z-index: 10;
+            }
+            .hRule .tickLabel {
+                position: absolute;
+                top: 0px;
+                width: 1px;
+                height: 100%;
+                text-indent: 1px;
+            }
+            .hRule .tickMajor {
+                position: absolute;
+                bottom: 0px;
+                width: 1px;
+                height: 6px;
+            }
+            .hRule .tickMinor {
+                position: absolute;
+                bottom: 0px;
+                width: 1px;
+                height: 4px;
+            }
+            .vRule .tickLabel {
+                position: absolute;
+                right: 0px;
+                height: 1px;
+                width: 100%;
+                text-indent: 1px;
+            }
+            .vRule .tickLabel span {
+                display: block;
+                position: absolute;
+                
+                top: 1px;
+                right: 0px;
+                margin-right: 18px;
+                
+                -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+                
+                -webkit-transform-origin: top right;
+            -moz-transform-origin: top right;
+            -ms-transform-origin: top right;
+            -o-transform-origin: top right;
+            transform-origin: top right;
+                
+            }
+            .vRule .tickMajor {
+                position: absolute;
+                right: 0px;
+                height: 1px;
+                width: 6px;
+            }
+            .vRule .tickMinor {
+                position: absolute;
+                right: 0px;
+                height: 1px;
+                width: 4px;
+            }
+
+            .vMouse {
+                display: block;
+                position: fixed;
+                width: 100%;
+                height: 0px;
+                
+                left: 0;
+                background: rgba(0,0,0,0);
+                border-bottom: 1px dotted;
+                z-index: 11;
+            }
+            .hMouse {
+                display: block;
+                position: fixed;
+                height: 100%;
+                width: 0px;
+                top: 0;
+
+                background: rgba(0,0,0,0);
+                border-left: 1px dotted;
+                z-index: 11;
+            }
+            .mousePosBox {
+                height: 16px;
+                background: rgba(0,0,0,0.25);
+                color: #fff;
+                font-family: source code pro;
+                font-size: 12px;
+                line-height: 16px;
+                border: 1px solid rgba(0,0,0,0.5);
+                position: fixed;
+                white-space: no-wrap;
+                display: block;
+                overflow-y:hidden;
+                float: left;
+                text-align: left;
+                left: -50%;
+                top: -50%;
+                padding: 0 2px;
+            }
+        </style>
+        <style>
+            body {
+                font-family: arial;
+            }
+
+            .control {
+                width: 90%;
+                border: 1px solid black;
+                margin: 5px 0;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Hello! This is a test page!</h1>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus enim eu pharetra malesuada. Phasellus aliquam purus sit amet viverra volutpat. Proin feugiat est eu nibh vulputate dictum. Sed at justo eget sem porttitor semper vitae a tellus. Duis suscipit metus sem, eget sodales lorem porttitor et. Aenean ullamcorper augue dolor, a consectetur ante imperdiet sit amet. Quisque tempus dui vitae dolor placerat, id fermentum dui ullamcorper. Nulla congue euismod massa sit amet pretium. Etiam maximus nibh in est vulputate bibendum.<br>
+
+            Nulla facilisi. Vestibulum eget nunc vitae odio rhoncus euismod. Etiam vitae bibendum tortor. Nunc elementum gravida erat, sit amet tempor tellus commodo eu. Suspendisse volutpat congue vestibulum. Nulla facilisi. In porta massa quam, eu pretium libero eleifend vel. Nam tincidunt rhoncus laoreet. Cras leo leo, lobortis non vehicula at, placerat ac magna. Suspendisse euismod dolor purus, in tempus est auctor in. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+            
+            Donec in fringilla enim. Duis eu massa a elit commodo tempus fringilla eget dolor. Cras eget vestibulum mi. Etiam odio nulla, suscipit sit amet ex a, malesuada maximus diam. Pellentesque ut ex sodales felis malesuada egestas at quis quam. Praesent malesuada molestie ante quis fringilla. Etiam et bibendum eros. Integer pharetra, turpis eu varius vulputate, dui arcu facilisis urna, sit amet ornare ex libero non ligula. Sed ultricies ut magna vitae viverra. Donec nibh orci, imperdiet nec libero eget, tincidunt varius leo. Nunc a vestibulum ex. Phasellus vestibulum ante sed libero pellentesque suscipit. Sed lobortis tristique nisi ut fermentum.<br>
+            
+            Integer ac dapibus leo. Suspendisse potenti. Fusce sed ligula laoreet ipsum pharetra viverra vel sed lorem. Donec at felis pellentesque augue tempus posuere. Duis sodales eros vel aliquam congue. Pellentesque id ligula ac orci placerat consequat. Aliquam erat volutpat. Curabitur imperdiet arcu tellus, non vulputate lacus congue sed.
+            
+            Duis blandit, quam eu tempus ultrices, ex sem consectetur tellus, at finibus urna elit ut velit. Phasellus molestie felis quis mi facilisis aliquam. Nam eros leo, placerat at elit sed, aliquam laoreet metus. Sed massa mauris, ullamcorper at egestas at, eleifend nec magna. Sed pharetra dui ac viverra ornare. Pellentesque quis euismod sem. Maecenas pretium dolor et condimentum elementum. Praesent vestibulum velit in mauris sodales rutrum. Donec gravida libero in hendrerit commodo. Aliquam ullamcorper mi diam, ac gravida metus sollicitudin in. Maecenas nec quam mauris. Sed suscipit nibh eros, a venenatis nunc interdum in. Morbi nibh dolor, placerat et tincidunt vitae, blandit in lacus. Integer pulvinar sem dolor, sed feugiat magna condimentum ut. Sed egestas venenatis velit.
+        </p>
+
+        <h1>Contact us</h1>
+
+        <input type="text" class="control" placeholder="Name" id="name">
+        <input type="email" class="control" placeholder="Email" id="email">
+
+        <button class="control" onclick="this.textContent = 'Pressed!'">Press me!</button>
+
+        <p>
+            Duis blandit, quam eu tempus ultrices, ex sem consectetur tellus, at finibus urna elit ut velit. Phasellus molestie felis quis mi facilisis aliquam. Nam eros leo, placerat at elit sed, aliquam laoreet metus. Sed massa mauris, ullamcorper at egestas at, eleifend nec magna. Sed pharetra dui ac viverra ornare. Pellentesque quis euismod sem. Maecenas pretium dolor et condimentum elementum. Praesent vestibulum velit in mauris sodales rutrum. Donec gravida libero in hendrerit commodo. Aliquam ullamcorper mi diam, ac gravida metus sollicitudin in. Maecenas nec quam mauris. Sed suscipit nibh eros, a venenatis nunc interdum in. Morbi nibh dolor, placerat et tincidunt vitae, blandit in lacus. Integer pulvinar sem dolor, sed feugiat magna condimentum ut. Sed egestas venenatis velit.
+        </p>
+
+        <h1>Some links</h1>
+
+        <p>
+            Donec in fringilla enim. Duis eu massa a elit commodo tempus fringilla eget dolor. Cras eget vestibulum mi. Etiam odio nulla, suscipit sit amet ex a, malesuada maximus diam. Pellentesque ut ex sodales felis malesuada egestas at quis quam. Praesent malesuada molestie ante quis fringilla. Etiam et bibendum eros. Integer pharetra, turpis <a href="./post.html" target="_blank">eu varius vulputate</a>, dui arcu facilisis urna, sit amet ornare ex libero non ligula. Sed ultricies ut magna vitae viverra. Donec nibh orci, imperdiet nec libero eget, tincidunt varius leo. Nunc a vestibulum ex. Phasellus vestibulum ante sed libero pellentesque suscipit. Sed lobortis tristique nisi ut fermentum.<br>
+
+            Duis blandit, quam eu tempus ultrices, ex sem consectetur tellus, at finibus urna elit ut velit. Phasellus molestie felis quis mi facilisis aliquam. Nam eros leo, placerat at elit sed, <a href="./post.html">aliquam laoreet</a> metus. Sed massa mauris, ullamcorper at egestas at, eleifend nec magna. Sed pharetra dui ac viverra ornare. Pellentesque quis euismod sem. Maecenas pretium dolor et condimentum elementum. Praesent vestibulum velit in mauris sodales rutrum. Donec gravida libero in hendrerit commodo. Aliquam ullamcorper mi diam, ac gravida metus sollicitudin in. Maecenas nec quam mauris. Sed suscipit nibh eros, a venenatis nunc interdum in. Morbi nibh dolor, placerat et tincidunt vitae, blandit in lacus. Integer pulvinar sem dolor, sed feugiat magna condimentum ut. Sed egestas venenatis velit.
+        </p>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script>
+/**
+ * jQuery.Ruler v1.1
+ * Add Photoshop-like rulers and mouse position to a container element using jQuery.
+ * http://ruler.hilliuse.com
+ * 
+ * Dual licensed under the MIT and GPL licenses.
+ * Copyright 2013 Hillius Ettinoffe http://hilliuse.com
+ */
+;(function( $ ){
+
+$.fn.ruler = function(options) {
+
+    var defaults = {
+        vRuleSize: 18,
+        hRuleSize: 18,
+        showCrosshair : true,
+        showMousePos: true
+    };//defaults
+    var settings = $.extend({},defaults,options);
+    
+    var hRule = '<div class="ruler hRule"></div>',
+            vRule = '<div class="ruler vRule"></div>',
+            corner = '<div class="ruler corner"></div>',
+            vMouse = '<div class="vMouse"></div>',
+            hMouse = '<div class="hMouse"></div>',
+            mousePosBox = '<div class="mousePosBox">x: 50%, y: 50%</div>';
+    
+    if (true) {
+        // Mouse crosshair
+        if (settings.showCrosshair) {
+            $('body').append(vMouse, hMouse);
+        }
+        // Mouse position
+        if (settings.showMousePos) {
+            $('body').append(mousePosBox);
+        }
+        // If either, then track mouse position
+        if (settings.showCrosshair || settings.showMousePos) {
+            $(window).mousemove(function(e) {
+                if (settings.showCrosshair) {
+                    $('.vMouse').css("top",e.pageY-($(document).scrollTop())+1);
+                    $('.hMouse').css("left",e.pageX+1);
+                    //-($(window).scrollTop())
+                }
+                if (settings.showMousePos) {
+                    $('.mousePosBox').html("x:" + (e.pageX-settings.vRuleSize) + ", y:" + (e.pageY-settings.hRuleSize) ).css({
+                        top: e.pageY-($(document).scrollTop()) + 16,
+                        left: e.pageX + 12
+                    });
+                }
+            });
+        }
+    }
+    
+    //resize
+    $(window).resize(function(e){
+        var $hRule = $('.hRule');
+        var $vRule = $('.vRule');
+        $hRule.empty();
+        $vRule.empty().height(0).outerHeight($vRule.parent().outerHeight());
+        
+        // Horizontal ruler ticks
+        var tickLabelPos = settings.vRuleSize;
+        var newTickLabel = "";
+        while ( tickLabelPos <= $hRule.width() ) {
+            if ((( tickLabelPos - settings.vRuleSize ) %50 ) == 0 ) {
+                newTickLabel = "<div class='tickLabel'>" + ( tickLabelPos - settings.vRuleSize ) + "</div>";
+                $(newTickLabel).css( "left", tickLabelPos+"px" ).appendTo($hRule);
+            } else if ((( tickLabelPos - settings.vRuleSize ) %10 ) == 0 ) {
+                newTickLabel = "<div class='tickMajor'></div>";
+                $(newTickLabel).css("left",tickLabelPos+"px").appendTo($hRule);
+            } else if ((( tickLabelPos - settings.vRuleSize ) %5 ) == 0 ) {
+                newTickLabel = "<div class='tickMinor'></div>";
+                $(newTickLabel).css( "left", tickLabelPos+"px" ).appendTo($hRule);
+            }
+            tickLabelPos = (tickLabelPos + 5);				
+        }//hz ticks
+        
+        // Vertical ruler ticks
+        tickLabelPos = settings.hRuleSize;
+        newTickLabel = "";
+        while (tickLabelPos <= $vRule.height()) {
+            if ((( tickLabelPos - settings.hRuleSize ) %50 ) == 0) {
+                newTickLabel = "<div class='tickLabel'><span>" + ( tickLabelPos - settings.hRuleSize ) + "</span></div>";
+                $(newTickLabel).css( "top", tickLabelPos+"px" ).appendTo($vRule);
+            } else if (((tickLabelPos - settings.hRuleSize)%10) == 0) {
+                newTickLabel = "<div class='tickMajor'></div>";
+                $(newTickLabel).css( "top", tickLabelPos+"px" ).appendTo($vRule);
+            } else if (((tickLabelPos - settings.hRuleSize)%5) == 0) {
+                newTickLabel = "<div class='tickMinor'></div>";
+                $(newTickLabel).css( "top", tickLabelPos+"px" ).appendTo($vRule);
+            }
+            tickLabelPos = ( tickLabelPos + 5 );				
+        }//vert ticks
+    });//resize
+    
+    return this.each(function() {
+        var $this = $(this);
+        
+        // Attach rulers
+        
+        // Should not need 1 min padding-top of 1px but it does
+        // will figure it out some other time
+        $this.css("padding-top", settings.hRuleSize + 1 + "px");
+        if (settings.hRuleSize > 0) {				
+            $(hRule).height(settings.hRuleSize).prependTo($this);
+        }
+        
+        if (settings.vRuleSize > 0) {
+            var oldWidth = $this.outerWidth();
+            $this.css("padding-left", settings.vRuleSize + 1 + "px").outerWidth(oldWidth);
+            $(vRule).width(settings.vRuleSize).height($this.outerHeight()).prependTo($this);
+        }
+        
+        if ( (settings.vRuleSize > 0) && (settings.hRuleSize > 0) ) {
+            $(corner).css({
+                width: settings.vRuleSize,
+                height: settings.hRuleSize
+            }).prependTo($this);
+        }
+        
+        
+        var $hRule = $this.children('.hRule');
+        var $vRule = $this.children('.vRule');
+    
+        // Horizontal ruler ticks
+        var tickLabelPos = settings.vRuleSize;
+        var newTickLabel = "";
+        while ( tickLabelPos <= $hRule.width() ) {
+            if ((( tickLabelPos - settings.vRuleSize ) %50 ) == 0 ) {
+                newTickLabel = "<div class='tickLabel'>" + ( tickLabelPos - settings.vRuleSize ) + "</div>";
+                $(newTickLabel).css( "left", tickLabelPos+"px" ).appendTo($hRule);
+            } else if ((( tickLabelPos - settings.vRuleSize ) %10 ) == 0 ) {
+                newTickLabel = "<div class='tickMajor'></div>";
+                $(newTickLabel).css("left",tickLabelPos+"px").appendTo($hRule);
+            } else if ((( tickLabelPos - settings.vRuleSize ) %5 ) == 0 ) {
+                newTickLabel = "<div class='tickMinor'></div>";
+                $(newTickLabel).css( "left", tickLabelPos+"px" ).appendTo($hRule);
+            }
+            tickLabelPos = (tickLabelPos + 5);				
+        }//hz ticks
+        
+        // Vertical ruler ticks
+        tickLabelPos = settings.hRuleSize;
+        newTickLabel = "";
+        while (tickLabelPos <= $vRule.height()) {
+            if ((( tickLabelPos - settings.hRuleSize ) %50 ) == 0) {
+                newTickLabel = "<div class='tickLabel'><span>" + ( tickLabelPos - settings.hRuleSize ) + "</span></div>";
+                $(newTickLabel).css( "top", tickLabelPos+"px" ).appendTo($vRule);
+            } else if (((tickLabelPos - settings.hRuleSize)%10) == 0) {
+                newTickLabel = "<div class='tickMajor'></div>";
+                $(newTickLabel).css( "top", tickLabelPos+"px" ).appendTo($vRule);
+            } else if (((tickLabelPos - settings.hRuleSize)%5) == 0) {
+                newTickLabel = "<div class='tickMinor'></div>";
+                $(newTickLabel).css( "top", tickLabelPos+"px" ).appendTo($vRule);
+            }
+            tickLabelPos = ( tickLabelPos + 5 );				
+        }//vert ticks			
+        
+    });//each		
+    
+};//ruler
+})( jQuery );
+        </script>
+        <script>
+            $(function() {
+                $('body').ruler();    
+            });
+        </script>
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter50329129 = new Ya.Metrika({
+                            id:50329129,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true,
+                            webvisor:true
+                        });
+                    } catch(e) { }
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f, false);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/50329129" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+            
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter50329162 = new Ya.Metrika2({
+                            id:50329162,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true,
+                            webvisor:true
+                        });
+                    } catch(e) { }
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f, false);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks2");
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/50329162" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+</html>
