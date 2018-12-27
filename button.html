@@ -7,7 +7,7 @@
     <title>Debug page</title>
     <style>
       body {margin: 0; font-family: Arial;}
-      .btn {margin: 2px; padding: 20px; font-size: 16px;}
+      .btn {font-size: 16px; width: 120px; height: 120px; position: fixed; top: 0; left: 0;}
      </style>
   </head>
 
@@ -18,8 +18,15 @@
     <script>
       (function() {
         var count = 0;
-        document.querySelector('.btn').addEventListener('click', () => {
+        const pos = [0, 0];
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', (e) => {
           document.querySelector('.cc').textContent = ++count;
+          pos.reduce((a, c) => {
+            return c > 200 ? 0 : c++;
+          });
+          btn.style.top = `${pos[0]}px`;
+          btn.style.left = `${pos[1]}px`;
         });
       })();
     </script>
