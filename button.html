@@ -7,7 +7,7 @@
     <title>Debug page</title>
     <style>
       body {margin: 0; font-family: Arial;}
-      btn {margin: 2px; padding: 20px;}
+      .btn {margin: 2px; padding: 20px; font-size: 16px;}
      </style>
   </head>
 
@@ -19,7 +19,7 @@
       (function() {
         var count = 0;
         document.querySelector('.btn').addEventListener('click', () => {
-          document.querySelector('.cc').textContent = count++;
+          document.querySelector('.cc').textContent = ++count;
         });
       })();
     </script>
