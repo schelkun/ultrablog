@@ -22,9 +22,14 @@
         const btn = document.querySelector('.btn');
         btn.addEventListener('click', (e) => {
           document.querySelector('.cc').textContent = ++count;
-          pos.reduce((a, c) => {
-            return c > 200 ? 0 : c++;
-          });
+          pos[0] += 2;
+          pos[1] += 2;
+          
+          if (pos[0] > 100) {
+            pos[0] = 0;
+            pos[1] = 0;
+          }
+          
           btn.style.top = `${pos[0]}px`;
           btn.style.left = `${pos[1]}px`;
         });
