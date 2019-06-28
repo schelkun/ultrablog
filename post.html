@@ -148,7 +148,7 @@ const pSBC = (p, c0, c1, l) => {
                 for (let param of params) {
                     if (param[0] === 'color') {
                         const origColor = decodeURIComponent(param[1])
-                        const darkColor = pSBC(-0.4, '#' + origColor);
+                        const darkColor = pSBC(-0.9, '#' + origColor);
                         document.querySelector('.block').style.background = `linear-gradient(to bottom, #${origColor} 0%, ${darkColor} 100%)`;
                         continue;
                     }
