@@ -113,7 +113,7 @@
                 for (let param of params) {
                     if (param[0] === 'color') {
                         const origColor = decodeURIComponent(param[1])
-                        const darkColor = LightenDarkenColor(origColor, -50);
+                        const darkColor = LightenDarkenColor(origColor, -50).replace('-', '');
                         document.querySelector('.block').style.background = `linear-gradient(to bottom, #${origColor} 0%, #${darkColor} 100%)`;
                         continue;
                     }
