@@ -11,6 +11,7 @@
         <script>
             (function() {
                 const frame = document.querySelector('iframe');
+                const endtag = '<' + '/s' + 'cript>';
                 frame.srcdoc = `
                     <script>(function() {
                         if (localStorage.getItem('test') !== null) {
@@ -20,7 +21,7 @@
                             localStorage.setItem('test', 'ok');
                             console.log('SETTING SRCDOC LOCAL STORAGE');
                         }
-                    })()</script>;
+                    })()${endtag};
                 `;
             )();
         </script>
