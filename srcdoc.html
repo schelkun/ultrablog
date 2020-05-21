@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SRCDOC</title>
+    </head>
+    <body>
+        <iframe></iframe>
+        <script>
+            (function() {
+                const frame = document.querySelector('iframe');
+                frame.srcdoc = `
+                    (function() {
+                        if (localStorage.getItem('test') !== null) {
+                            console.log('LOCAL STORAGE SRCDOC IS SET:', localStorage.getItem('test'));
+                            return;
+                        } else {
+                            localStorage.setItem('test', 'ok');
+                            console.log('SETTING SRCDOC LOCAL STORAGE');
+                        }
+                    })();
+                `;
+            )();
+        </script>
+    </body>
+</html>
